@@ -129,7 +129,7 @@ if [[ $PIA_DNS == "true" ]]; then
   echo
   dnsSettingForVPN="DNS = $dnsServer"
 fi
-echo -n "Trying to write /etc/wireguard/pia.conf..."
+echo -n "Trying to write /config/wg0.conf..."
 mkdir -p /etc/wireguard
 echo "
 [Interface]
@@ -141,7 +141,7 @@ PersistentKeepalive = 25
 PublicKey = $(echo "$wireguard_json" | jq -r '.server_key')
 AllowedIPs = 0.0.0.0/0
 Endpoint = ${WG_SERVER_IP}:$(echo "$wireguard_json" | jq -r '.server_port')
-" > /etc/wireguard/pia.conf || exit 1
+" > /config/wg0.conf || exit 1
 echo -e "${green}OK!${nc}"
 
 # Start the WireGuard interface.
